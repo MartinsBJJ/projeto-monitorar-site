@@ -1,22 +1,27 @@
 import requests
-from datetime import datetime
-
-# Lista de sites a serem monitorados
-sites = [
-     ("https://www.pasqualisolution.com.br/")
-]
+import time
 
 def verificar_site(url):
-    try:
-        resposta = requests.get(url, timeout=5)
-        status = resposta.status_code
-        if status == 200:
-            return f"[{datetime.now()}]  {url} está ONLINE"
-        else:
-            return f"[{datetime.now()}]  {url} respondeu com status {status}"
-    except requests.exceptions.RequestException:
-        return f"[{datetime.now()}]  {url} está OFFLINE"
+    # Adiciona o protocolo se estiver ausente
+    if not url.startswith("http://") and not url.startswith("https://"):
+        url = "http://" + url
 
-# Rodar verificações
-for site in sites:
-    print(verificar_site(site))
+    try:
+        inicio = time.time()
+        resposta = requests.get(url, timeout=5)
+        fim = time.time()
+        tempo_resposta = round(fim - inicio, 2)
+
+        if resposta.status_code == 200:
+            print(f"O site {url} está ONLINE: {tempo_resposta}s)")
+        else:
+            print(f"O site {url} respondeu com código: {resposta.status_code}")
+    except requests.exceptions.RequestException as e:
+        print(f"O site {url} está OFFLINE ")
+        print(f"Detalhes do erro: {e}")
+
+if __name__ == "__main__":
+    site = input("Digite o site ou IP (ex: google.com ou 192.168.1.1): ")
+    verificar_site(site)
+
+
