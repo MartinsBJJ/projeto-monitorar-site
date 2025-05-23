@@ -2,7 +2,7 @@ import requests
 import time
 
 def verificar_site(url):
-    # Adiciona o protocolo se estiver ausente
+    
     if not url.startswith("http://") and not url.startswith("https://"):
         url = "http://" + url
 
@@ -21,7 +21,7 @@ def verificar_site(url):
         print(f"Detalhes do erro: {e}")
 
 if __name__ == "__main__":
-    site = input("Digite o site ou IP (ex: google.com ou 192.168.1.1): ")
+    site = input("Digite o site ou IP : ")
     verificar_site(site)
 
 
