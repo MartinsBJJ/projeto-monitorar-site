@@ -54,7 +54,7 @@ jobs:
 
     # Executa o script de monitoramento
     - name: Run monitor script
-      run: python monitor.py
+      run: python monitoramento.py
 
     # (Opcional) Notifica se falhar
     - name: Notify on failure
