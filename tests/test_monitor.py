@@ -1,8 +1,12 @@
-# tests/test_monitor.py
-from monitoramento import is_site_up
+import unittest
+from monitoramento import check_site
 
-def test_google_is_up():
-    assert is_site_up("https://www.google.com") == True
+class TestMonitor(unittest.TestCase):
+    def test_site_online(self):
+        self.assertTrue(check_site("https://example.com"))
 
-def test_invalid_site_is_down():
-    assert is_site_up("http://thisurldoesnotexist.tld") == False
+    def test_site_offline(self):
+        self.assertFalse(check_site("https://invalid-site-xyz123.com"))
+
+if __name__ == "__main__":
+    unittest.main()
